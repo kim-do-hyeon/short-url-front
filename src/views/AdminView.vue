@@ -12,8 +12,7 @@ const deletingCode = ref('')
 const error = ref('')
 
 function shortUrl(item: LinkStats): string {
-  const apiBase = (import.meta.env.VITE_API_BASE || 'http://localhost:8000').replace(/\/+$/, '')
-  return `${apiBase}/${item.code}`
+  return `${window.location.origin}/${item.code}`
 }
 
 function openUrl(item: LinkStats): string {
