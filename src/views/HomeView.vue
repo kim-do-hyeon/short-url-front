@@ -24,10 +24,12 @@ const copied = ref(false)
 const canSubmit = computed(() => !!form.originalUrl && !loading.value)
 const displayShortUrl = computed(() => {
   if (!result.value) return ''
+  const base = window.location.origin
+  const codePath = `/${result.value.code}`
   if (result.value.password_protected) {
-    return `${window.location.origin}/go/${result.value.code}`
+    return `${base}/go/${result.value.code}`
   }
-  return result.value.short_url
+  return `${base}${codePath}`
 })
 
 function reset() {
