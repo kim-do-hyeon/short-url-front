@@ -204,6 +204,12 @@ a {
   background: #f7f9ff;
 }
 
+.btn.danger {
+  border-color: #f0c8c8;
+  background: #fff3f3;
+  color: #a43a3a;
+}
+
 .btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;

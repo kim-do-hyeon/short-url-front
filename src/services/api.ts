@@ -69,6 +69,10 @@ export async function fetchLinks(): Promise<LinkStats[]> {
   return data.items
 }
 
+export async function deleteShortLink(code: string): Promise<void> {
+  await api.delete(`/api/links/${code}`)
+}
+
 export async function fetchLinkStats(code: string): Promise<LinkStats> {
   const { data } = await api.get<LinkStats>(`/api/links/${code}/stats`)
   return data

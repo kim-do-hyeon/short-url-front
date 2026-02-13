@@ -2,12 +2,13 @@
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { fetchLinks, type LinkStats } from '../services/api'
+import { deleteShortLink, fetchLinks, type LinkStats } from '../services/api'
 
 const { t } = useI18n()
 
 const items = ref<LinkStats[]>([])
 const loading = ref(false)
+const deletingCode = ref('')
 const error = ref('')
 
 function shortUrl(item: LinkStats): string {
@@ -43,6 +44,22 @@ async function load() {
   }
 }
 
+async function remove(item: LinkStats) {
+  if (deletingCode.value) return
+  if (!window.confirm(t('admin.deleteConfirm', { code: item.code }))) return
+
+  deletingCode.value = item.code
+  error.value = ''
+  try {
+    await deleteShortLink(item.code)
+    items.value = items.value.filter((target) => target.code !== item.code)
+  } catch (e: any) {
+    error.value = e?.response?.data?.detail || t('errors.deleteFailed')
+  } finally {
+    deletingCode.value = ''
+  }
+}
+
 onMounted(load)
 </script>
 
@@ -71,6 +88,7 @@ onMounted(load)
             <th>{{ t('admin.columns.clicks') }}</th>
             <th>{{ t('admin.columns.policy') }}</th>
             <th>{{ t('admin.columns.status') }}</th>
+            <th>{{ t('admin.columns.actions') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -90,6 +108,11 @@ onMounted(load)
               <span class="badge" :class="item.active ? 'on' : 'off'">
                 {{ item.active ? t('labels.active') : t('labels.inactive') }}
               </span>
+            </td>
+            <td>
+              <button class="btn danger mini" :disabled="deletingCode === item.code" @click="remove(item)">
+                {{ deletingCode === item.code ? '...' : t('admin.delete') }}
+              </button>
             </td>
           </tr>
         </tbody>

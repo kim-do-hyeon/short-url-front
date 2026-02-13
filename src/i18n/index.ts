@@ -45,12 +45,16 @@ const messages = {
         clicks: 'Clicks',
         policy: 'Policy',
         status: 'Status',
+        actions: 'Actions',
       },
+      delete: 'Delete',
+      deleteConfirm: 'Delete short URL {code}? This cannot be undone.',
     },
     errors: {
       createFailed: 'Failed to create short URL',
       fetchFailed: 'Failed to fetch link list',
       authRequired: 'Login is required to create and manage links.',
+      deleteFailed: 'Failed to delete short URL',
     },
     auth: {
       title: 'Member Access',
@@ -117,12 +121,16 @@ const messages = {
         clicks: '사용량',
         policy: '정책',
         status: '상태',
+        actions: '동작',
       },
+      delete: '삭제',
+      deleteConfirm: '단축 URL {code}를 삭제할까요? 이 작업은 되돌릴 수 없습니다.',
     },
     errors: {
       createFailed: '단축 URL 생성에 실패했습니다',
       fetchFailed: '링크 목록 조회에 실패했습니다',
       authRequired: '링크 생성과 관리를 위해 로그인이 필요합니다.',
+      deleteFailed: '단축 URL 삭제에 실패했습니다',
     },
     auth: {
       title: '회원 전용 접근',
