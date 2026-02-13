@@ -3,7 +3,6 @@ import { computed, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { createShortLink, type LinkCreatePayload, type LinkCreateResponse } from '../services/api'
-import { isAuthenticated } from '../services/auth'
 
 const { t } = useI18n()
 
@@ -45,10 +44,6 @@ function reset() {
 
 async function submit() {
   if (!canSubmit.value) return
-  if (!isAuthenticated()) {
-    error.value = t('errors.authRequired')
-    return
-  }
 
   loading.value = true
   error.value = ''
